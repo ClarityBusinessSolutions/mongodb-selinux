@@ -100,9 +100,9 @@ Ensure the data and log directories are set to the correct path
 
 There are following selinux booleans provided for use with enterprise features:
 
-mongod_can_connect_snmp
-mongod_can_connect_ldap
-mongod_can_use_kerberos
+* mongod_can_connect_snmp
+* mongod_can_connect_ldap
+* mongod_can_use_kerberos
 
 These booleans are disabled by default. They can be turned on using `setsebool` command:
 
