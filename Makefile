@@ -46,7 +46,7 @@ uninstall:
 	/usr/sbin/semodule --store $(selinuxvariant) --priority 200 --remove mongodb
 	/sbin/fixfiles -R mongodb-enterprise-server restore || true
 	/sbin/fixfiles -R mongodb-org-server restore || true
-	test -d /data/db && /sbin/restorecon -R -v /data/db || true
+	test -d /data/appdb/db && /sbin/restorecon -R -v/data/appdb/db || true
 	test -d /data/appdb/logs && /sbin/restorecon -R -v /data/appdb/logs || true
 	test -d /run/mongo && /sbin/restorecon -R /run/mongodb || true
 
