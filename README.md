@@ -63,6 +63,38 @@ are: tcp/27017-27019,28017-28019
 defaults are: tcp/199,1161,161-162 and udp/161-162. When using ports with number under 1024,
 standard unix considerations are in place.
 
+## Modifying For Custom Data and Log Directories
+
+In order to use custom data and log directories, `Makefile` and `selinux/mongodb.fc` need to 
+be edited. For example, if you want the data directory to be `/data/db` and the log directory
+to be `/data/log`, the following edits need made:
+
+### Modify the install method in Makefile
+
+ Ensure the data and log directories are set to the correct path.
+
+ ```shell
+/sbin/restorecon -R -v /data/db || true
+/sbin/restorecon -R -v /data/logs || true
+ ```
+
+### Modify the uninstall method in Makefile
+
+Ensure the data and log directories are set to the correct path.
+
+ ```shell
+test -d /data/db && /sbin/restorecon -R -v /data/db || true
+test -d /data/logs && /sbin/restorecon -R -v /data/logs || true
+ ```
+
+# Modify the paths for data and log files in selinux/mongodb.fc
+
+Ensure the data and log directories are set to the correct path
+
+```shell
+/data/db(/.*)?	          gen_context(system_u:object_r:mongod_var_lib_t,s0)
+/data/logs(/.*)? 	        gen_context(system_u:object_r:mongod_log_t,s0
+```
 
 ## Special Cases
 
